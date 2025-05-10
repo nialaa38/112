@@ -1,0 +1,74 @@
+.login-container {
+    background: linear-gradient(135deg, #2dbe9a 10%, #35cdd8 25%, #4274a5 50%, #32a3a3 75%, #6a89cc 90%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card Container */
+.login-box {
+    width: 950px;
+    min-height: 500px;
+    padding: 2rem;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    transition: min-height 0.4s ease-in-out;
+}
+
+/* Expands smoothly when switching to Sign-Up */
+.login-box.expand {
+    min-height: 600px;
+}
+
+/* Image Styling */
+.login-image {
+    width: 100%; 
+    max-width: 500px; 
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto; 
+    transition: all 0.5s ease-in-out;
+}
+
+/* Form Inputs */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #b0bec5;
+    padding: 12px;
+}
+
+.form-control:focus {
+    border-color: #4a69bd;
+    box-shadow: 0 0 5px rgba(74, 105, 189, 0.5);
+}
+
+/* Buttons */
+.btn-primary {
+    background: #4a69bd;
+    border: none;
+    font-weight: bold;
+    padding: 12px;
+}
+
+.btn-primary:hover {
+    background: #2c3e50;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .login-box {
+        width: 80%;
+        min-height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-box {
+        width: 90%;
+        min-height: 400px;
+    }
+}

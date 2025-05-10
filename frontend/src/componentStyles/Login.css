@@ -1,0 +1,202 @@
+/* componentStyles/Login.css */
+
+/* Scoped styles for the auth page body */
+body.auth-page {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Login component specific styles */
+.login-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.login-card {
+display: flex;
+background-color: #fff;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.login-card-left {
+flex: 1;
+background-color: #475ac4;
+background-image: linear-gradient(135deg, #4753c4 0%, #2e43ab 100%);
+color: white;
+padding: 40px;
+position: relative;
+overflow: hidden;
+}
+
+.login-card-right {
+flex: 1;
+padding: 40px;
+}
+
+.login-welcome {
+position: relative;
+z-index: 2;
+}
+
+.login-title {
+font-size: 2.5rem;
+font-weight: 700;
+margin-bottom: 15px;
+color: white;
+}
+
+.login-subtitle {
+font-size: 1rem;
+opacity: 0.9;
+line-height: 1.5;
+}
+
+.login-decoration {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+}
+
+.login-shapes {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' fill-opacity='0.08' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(102, 71, 196, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+opacity: 0.4;
+}
+
+/* Form styles */
+.login-form-wrapper {
+width: 100%;
+max-width: 320px;
+margin: 0 auto;
+}
+
+.login-form-heading {
+color: #333;
+font-size: 1.5rem;
+font-weight: 600;
+margin-bottom: 25px;
+text-align: center;
+}
+
+.login-form-group {
+margin-bottom: 16px;
+}
+
+.login-input {
+width: 100%;
+padding: 12px 16px;
+border: 1px solid #e0e0e0;
+border-radius: 6px;
+font-size: 0.9rem;
+transition: border-color 0.3s;
+}
+
+.login-input:focus {
+border-color: #6647c4;
+box-shadow: 0 0 0 2px rgba(102, 71, 196, 0.2);
+outline: none;
+}
+
+.login-remember-forgot {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+font-size: 0.85rem;
+}
+
+.login-checkbox {
+color: #666;
+}
+
+.login-forgot-link {
+color: #6647c4;
+text-decoration: none;
+}
+
+.login-forgot-link:hover {
+text-decoration: underline;
+}
+
+.login-submit-btn {
+background-color: #6647c4;
+border: none;
+color: white;
+padding: 12px 0;
+width: 100%;
+border-radius: 25px;
+font-size: 0.95rem;
+font-weight: 500;
+cursor: pointer;
+transition: background-color 0.3s;
+margin-top: 10px;
+}
+
+.login-submit-btn:hover {
+background-color: #5a3eae;
+}
+
+.login-submit-btn:disabled {
+background-color: #a0a0a0;
+cursor: not-allowed;
+}
+
+.login-new-user {
+text-align: center;
+margin-top: 25px;
+color: #666;
+font-size: 0.85rem;
+}
+
+.login-register-link {
+color: #6647c4;
+text-decoration: none;
+font-weight: 500;
+}
+
+.login-register-link:hover {
+text-decoration: underline;
+}
+
+.login-alert {
+padding: 12px;
+border-radius: 6px;
+margin-bottom: 20px;
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+color: #721c24;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+.login-card {
+    flex-direction: column;
+}
+
+.login-card-left {
+    padding: 30px;
+}
+
+.login-card-right {
+    padding: 30px;
+}
+
+.login-title {
+    font-size: 2rem;
+}
+}

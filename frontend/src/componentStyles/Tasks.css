@@ -1,0 +1,118 @@
+.tasks-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.btn-outline-secondary:hover {
+  border-color: #adb5bd;
+  color: #141516; 
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.project-meta {
+  display: flex;
+  gap: 15px;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+.manager-info {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.task-row {
+  vertical-align: middle;
+}
+
+.task-name {
+  font-weight: 500;
+}
+
+.task-description {
+  font-size: 0.8rem;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.priority-low {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.priority-medium {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.priority-high {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.priority-critical {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-todo {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.status-progress {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.status-review {
+  background-color: #d1e7ff;
+  color: #055160;
+}
+
+.status-completed {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.no-tasks {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  border: 1px dashed #dee2e6;
+  border-radius: 6px;
+}
