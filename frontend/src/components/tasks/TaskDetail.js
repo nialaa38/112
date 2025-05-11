@@ -256,31 +256,48 @@ const TaskDetail = () => {
     }
   };
 
+  const fetchComments = async () => {
+    try {
+        const response = await fetch(`/api/tasks/${id}/comments`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setComments(data);
+        } else {
+            console.error('Failed to fetch comments');
+        }
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+    }
+};
+
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!newComment.trim()) return;
-    
+
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8000/api/tasks/${id}/comments`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ content: newComment })
-      });
-      
-      if (response.ok) {
-        const commentData = await response.json();
-        setComments([...comments, commentData]);
-        setNewComment('');
-      }
+        const response = await fetch(`/api/tasks/${id}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify({ comment: newComment }),
+        });
+
+        if (response.ok) {
+            await fetchComments(); // Re-fetch comments after submission
+            setNewComment('');
+        } else {
+            console.error('Failed to add comment');
+        }
     } catch (error) {
-      console.error('Error adding comment:', error);
+        console.error('Error submitting comment:', error);
     }
-  };
+};
 
   const handleDelete = async () => {
     const confirm = window.confirm('Are you sure you want to delete this task?');
@@ -618,55 +635,33 @@ const TaskDetail = () => {
       </div>
       
       {/* Comments Section */}
-      {/* <div className="card mb-4">
+      <div className="card mt-4">
         <div className="card-header">
-          <h5 className="mb-0">Comments ({comments.length})</h5>
+            <h3>Comments</h3>
         </div>
-        <div className="card-body">
-          {comments.length === 0 ? (
-            <p className="text-muted">No comments yet.</p>
-          ) : (
-            <div className="comment-list mb-4">
-              {comments.map(comment => (
-                <div key={comment.id} className="d-flex mb-3">
-                  <div className="flex-shrink-0">
-                    <div className="avatar bg-light text-primary rounded-circle p-2 me-2">
-                      <i className="bi bi-person-fill"></i>
-                    </div>
-                  </div>
-                  <div className="flex-grow-1 ms-3">
+        <ul className="list-group list-group-flush">
+            {comments.map((comment) => (
+                <li key={comment.id} className="list-group-item">
                     <div className="d-flex justify-content-between">
-                      <h6 className="mb-0">{comment.user_name}</h6>
-                      <small className="text-muted">{new Date(comment.created_at).toLocaleString()}</small>
+                        <strong>{comment.user.name}</strong>
+                        <span className="text-muted">{new Date(comment.created_at).toLocaleString()}</span>
                     </div>
-                    <p className="mb-0">{comment.content}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )} */}
-          
-          {/* Add Comment Form */}
-          {/* <form onSubmit={handleCommentSubmit}>
-            <div className="mb-3">
-              <label htmlFor="comment" className="form-label">Add a comment</label>
-              <textarea
-                className="form-control"
-                id="comment"
-                rows="2"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Write your comment here..."
-                required
-              ></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              <i className="bi bi-chat-dots me-1"></i>
-              Add Comment
-            </button>
-          </form>
+                    <p>{comment.comment}</p>
+                </li>
+            ))}
+        </ul>
+        <div className="card-body">
+            <form onSubmit={handleCommentSubmit}>
+                <textarea
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    className="form-control mb-3"
+                    placeholder="Add a comment"
+                ></textarea>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
         </div>
-      </div> */}
+      </div>
       
       {/* Task Expenditures Section */}
       <div className="card">

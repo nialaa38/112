@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\User;
+use App\Models\ProjectFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -96,5 +98,28 @@ class ProjectController extends Controller
             'budget_utilization_percentage' => $project->budget > 0 ? ($totalExpenditure / $project->budget * 100) : 0,
         ]);
     }
-   
+
+    public function uploadFile(Request $request, $projectId)
+    {
+        $request->validate([
+            'file' => 'required|file|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $path = $file->store('project_files', 'public');
+
+        $projectFile = ProjectFile::create([
+            'project_id' => $projectId,
+            'file_name' => $file->getClientOriginalName(),
+            'file_path' => $path,
+        ]);
+
+        return response()->json($projectFile, 201);
+    }
+
+    public function getFiles($projectId)
+    {
+        $files = ProjectFile::where('project_id', $projectId)->get();
+        return response()->json($files);
+    }
 }

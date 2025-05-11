@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Card, Row, Col, Button, Badge, ProgressBar, Alert, Table, Modal } from 'react-bootstrap';
+import { Card, Row, Col, Button, Badge, ProgressBar, Alert, Table, Modal, Form } from 'react-bootstrap';
 import GanttChart from './ProjectTimeline';
 
 const ProjectDetail = () => {
@@ -12,12 +12,15 @@ const ProjectDetail = () => {
   const [error, setError] = useState('');
   const [taskExpenditures, setTaskExpenditures] = useState([]);
   const [showTimelineModal, setShowTimelineModal] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
       await fetchProject();
       await fetchStatistics();
       await fetchTaskExpenditures();
+      await fetchFiles();
     };
     loadData();
   }, [id]);
@@ -120,6 +123,48 @@ const ProjectDetail = () => {
       
     } catch (err) {
       console.error('Error fetching task expenditures:', err);
+    }
+  };
+
+  const fetchFiles = async () => {
+    const response = await fetch(`http://localhost:8000/api/projects/${id}/files`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setFiles(data);
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    console.log("File upload triggered");
+    console.log("Selected file:", selectedFile);
+
+    if (!selectedFile) {
+        alert("Please select a file before uploading.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+        const response = await fetch(`http://localhost:8000/api/projects/${id}/files`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            body: formData,
+        });
+
+        if (response.ok) {
+            console.log("File uploaded successfully");
+            fetchFiles();
+            setSelectedFile(null);
+        } else {
+            console.error("File upload failed:", await response.text());
+        }
+    } catch (error) {
+        console.error("Error during file upload:", error);
     }
   };
 
@@ -352,6 +397,51 @@ const ProjectDetail = () => {
               </div>
             </div>
           </div>
+        </Card.Body>
+      </Card>
+
+      {/* File Upload Section */}
+      <Card className="mt-4">
+        <Card.Header className="bg-light">
+          <h3 className="mb-0">File Upload</h3>
+        </Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleFileUpload}>
+            <Form.Group controlId="fileUpload">
+              <Form.Label>Upload File</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e) => setSelectedFile(e.target.files[0])}
+              />
+            </Form.Group>
+            <Button type="submit" className="mt-2">Upload</Button>
+          </Form>
+
+          <h3 className="mt-4">Shared Files</h3>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {files.map((file) => (
+                <tr key={file.id}>
+                  <td>{file.file_name}</td>
+                  <td>
+                    <a
+                      href={`http://localhost:8000/storage/${file.file_path}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </Card.Body>
       </Card>
     </div>

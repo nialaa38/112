@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpenditureController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\TaskExpenditureController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('projects', ProjectController::class);
     Route::get('/project-managers', [ProjectController::class, 'getProjectManagers']);
     Route::get('/projects/{project}/statistics', [ProjectController::class, 'statistics']);
+    Route::post('/projects/{id}/files', [ProjectController::class, 'uploadFile']);
+    Route::get('/projects/{id}/files', [ProjectController::class, 'getFiles']);
     
     // Task routes
     Route::apiResource('tasks', TaskController::class);
@@ -48,6 +51,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Comment routes
     Route::apiResource('task-comments', TaskCommentController::class);
     Route::get('/tasks/{task}/comments', [TaskCommentController::class, 'getCommentsByTask']);
+    Route::post('/tasks/{task}/comments', [TaskCommentController::class, 'store']);
 
     Route::post('/projects/{project}/tasks', [TaskController::class, 'store']);
+
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'index']);
 });

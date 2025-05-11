@@ -17,6 +17,7 @@ import Tasks from './components/tasks/Tasks';
 import TaskDetail from './components/tasks/TaskDetail';
 import NewTask from './components/tasks/NewTask'; 
 import Budget from './components/budget/Budget';
+import Notifications from './components/Notifications';
 import NotFound from './components/layout/NotFound';
 import PrivateRoute from './components/routing/PrivateRoute';
 
@@ -93,6 +94,7 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <h1>Task Management System</h1>
         {isAuthenticated && <Navbar user={user} onLogout={logout} />}
         
         <Routes>
@@ -170,6 +172,9 @@ function App() {
               </main>
             </PrivateRoute>
           } />
+
+          {/* Route for Notifications */}
+          <Route path="/notifications" element={<Notifications />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
